@@ -1,0 +1,58 @@
+{% extends 'miniblog/base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Dashboard</h4>
+
+            <h6 class="alert alert-info my-3">Show Post Information</h6>
+
+            <a href="{% url 'addpost' %}" class="btn btn-success mb-3">Add-Post</a>
+
+            {% if post %}
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col" style="width:2%">ID</th>
+                        <th scope="col" style="width:15%">TITLE</th>
+                        <th scope="col" style="width:71%">DESCRIPTION</th>
+                        <th scope="col" style="width:12%">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in post%}
+
+                    <tr>
+                        <th scope="row">{{post.id}}</th>
+                        <th>{{post.title}}</th>
+                        <th>{{post.descrip}}</th>
+                        <th>
+                            <a href="{% url 'editpost' post.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            {% if perms.miniblog.delete %}
+                            <form action="{% url 'delete' post.id %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                            </form>
+                            {% endif %}
+                        </th>
+                        
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'miniblog/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+
+
+    <div class="row m-5">
+        <div class="col-md-8 offset-2">
+        {% for post in page_obj %}
+            
+                <div class="container bg-info">
+                <h2 class="font-weight-bold">{{post.title}}</h2>
+                <p class="lead">{{post.descrip|truncatewords:20}} <a href="{% url 'post' post.id %}" class="text-white" style="font-size: small; text-decoration: none;">Read More...</a> </p>
+                </div>
+        {% endfor %}   
+
+        <span>
+            {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+            {% endif %}
+            <span>{{ page_obj.number }} {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">Next</a>
+            {% endif %}
+        </span> 
+        </div>
+    </div>
+
+
+{% endblock content %}

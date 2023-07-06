@@ -1,0 +1,26 @@
+{% extends 'miniblog/base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+
+{% block content %}
+
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                 {% for fm in form %}
+                 {{ fm.label_tag }} {{ fm }} {{ fm.errors|striptags }}
+                 {% endfor %} <br>
+                <input type="submit" class="btn btn-success" value="AddPost">
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}
